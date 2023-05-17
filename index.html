@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Simulacion de Ley de Gauss</title>
+</head>
+<body>
+    <div class="container">
+        <div class="formulario">
+            <h1>Simulador de ley gaussiana en esferas</h1>
+            <h3><b>Por favor ingrese los siguientes datos</b></h3><br/><br/>
+            <form action="">
+                <h3><b>Tipo de esfera:</b></h3>
+                <br>
+                <label for="aislante">Esfera aislante: </label>
+                <input type="radio" name="aislante" id="aislante">
+
+                <label for="conductora">Esfera conductora: </label>
+                <input type="radio" name="aislante" id="conductora">
+                <br>
+
+                <h3><b>Radio de esfera:</b></h3>
+
+                <label for="radio-esfera">Seleccione el radio de la esfera</label>
+                <input type="number" name="radio-esfera" id="radio-esfera">
+                <br><br>
+
+                <label for="radio-superficie">Seleccione el radio de la superficie gaussiana</label>
+                <input type="number" name="radio-superficie" id="radio-superficie">
+            </form>
+        </div>
+        <div class="simulacion"></div>
+    </div>
+
+    <script src="./index.js"></script>
+</body>
+</html>
