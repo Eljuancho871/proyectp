@@ -21,8 +21,8 @@
                 <label for="conductora">Esfera conductora: </label>
                 <input type="radio" name="aislante" id="conductora">
                 <br>
-
-                <h3><b>Radio de esfera:</b></h3>
+                <br/>
+                <h3><b>Radio de esfera:</b></h3><br/>
 
                 <label for="radio-esfera">Seleccione el radio de la esfera</label>
                 <input type="number" name="radio-esfera" id="radio-esfera">
@@ -32,9 +32,14 @@
                 <input type="number" name="radio-superficie" id="radio-superficie">
             </form>
         </div>
-        <div class="simulacion"></div>
+        <div class="simulacion">
+            <div style="width: 100%;height: 100vh;" id="sphere"></div>
+        </div>
     </div>
+    
+    <img src="./cientifico.png" alt="">
 
-    <script src="./index.js"></script>
+
+    <script type="module" src="./index.js"></script>
 </body>
 </html>
