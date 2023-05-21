@@ -1,6 +1,7 @@
 import * as THREE from "three";
 
 const $esfera_contenedor = document.querySelector("#esfera_contenedor");
+let esferas_array = [];
 
 var escena = new THREE.Scene();
 escena.background = new THREE.Color(0x333333);
@@ -24,6 +25,7 @@ class Esfera {
       wireframe: true
     });
     this.esfera = new THREE.Mesh(this.geometria, this.material);
+    esferas_array.push(this.esfera);
   }
 
   insertar_escena() {
@@ -49,11 +51,12 @@ class Esfera {
 
 let caso = 1;
 
-const mostrar_esfera_caso = (caso) => {
+
+const mostrar_esfera_caso = (caso, radio_esfera) => {
 
   if(caso == 1){
     
-    let esfera_padre_caso1 = new Esfera([2, 32, 32], 0xffffff);
+    let esfera_padre_caso1 = new Esfera([radio_esfera, 32, 32], 0xffffff);
     esfera_padre_caso1.insertar_escena();
     esfera_padre_caso1.animar();
     
@@ -84,7 +87,20 @@ document.querySelector("#formulario").addEventListener("submit", (e) => {
 
   e.preventDefault();
   document.querySelector("body").style.overflowY = "visible";
-  mostrar_esfera_caso(caso);
+
+  let tipo_esfera = document.querySelector("#aislante").checked ? "aislante" : "conductora";
+  let radio_esfera = document.querySelector("#radio-esfera").value;
+  let radio_gaus = document.querySelector("#radio-superficie").value;
+
+  esferas_array.forEach(esfera => {
+
+  escena.remove(esfera);
+  esfera.geometry.dispose();
+  esfera.material.dispose();
+  })
+
+  esferas_array = [];
+  mostrar_esfera_caso(caso, radio_esfera);
 })
 
 camara.position.z = 5;
