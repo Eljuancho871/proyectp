@@ -1,28 +1,18 @@
 import * as THREE from "three";
 
-// contenedores de cada caso
-
-const $esfera_contenedor_caso_1 = document.querySelector("#esfera_caso_1");
-const $esfera_contenedor_caso_2 = document.querySelector("#esfera_caso_2");
-const $esfera_contenedor_caso_3 = document.querySelector("#esfera_caso_3");
-
-// configuración de la escena
+const $esfera_contenedor = document.querySelector("#esfera_contenedor");
 
 var escena = new THREE.Scene();
 escena.background = new THREE.Color(0x333333);
 var camara = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
-// creación y ajuste del renderizador
-
 var renderer = new THREE.WebGLRenderer();
 const resize = () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
 };
-$esfera_contenedor_caso_1.appendChild(renderer.domElement);
 resize();
+$esfera_contenedor.appendChild(renderer.domElement);
 window.addEventListener("resize", resize);
-
-// clase Esfera
 
 class Esfera {
 
@@ -56,13 +46,45 @@ class Esfera {
   }
 }
 
-// invocando esferas
 
-let esfera_padre = new Esfera([2, 32, 32], 0xffffff);
-esfera_padre.insertar_escena();
-esfera_padre.animar();
+let caso = 1;
 
-let esfera_hija = new Esfera([1, 32, 32], 0xffff00);
-esfera_hija.agregar_esfera_hija(esfera_padre.esfera);
+const mostrar_esfera_caso = (caso) => {
+
+  if(caso == 1){
+    
+    let esfera_padre_caso1 = new Esfera([2, 32, 32], 0xffffff);
+    esfera_padre_caso1.insertar_escena();
+    esfera_padre_caso1.animar();
+    
+    let esfera_hija_caso1 = new Esfera([1, 32, 32], 0xffff00);
+    esfera_hija_caso1.agregar_esfera_hija(esfera_padre_caso1.esfera);
+  }
+  else if(caso == 2){
+  
+    let esfera_padre_caso2 = new Esfera([2, 32, 32], 0xffff00);
+    esfera_padre_caso2.insertar_escena();
+    esfera_padre_caso2.animar();
+  
+    let esfera_hija_caso2 = new Esfera([1, 32, 32], 0xffffff );
+    esfera_hija_caso2.agregar_esfera_hija(esfera_padre_caso2.esfera)
+  }
+  else{
+  
+    let esfera_padre_caso3 = new Esfera([2, 32, 32], 0xffff00);
+    esfera_padre_caso3.insertar_escena();
+    esfera_padre_caso3.animar();
+  
+    let esfera_hija_caso3 = new Esfera([1.99, 32, 32], 0xffffff );
+    esfera_hija_caso3.agregar_esfera_hija(esfera_padre_caso3.esfera)
+  }
+}
+
+document.querySelector("#formulario").addEventListener("submit", (e) => {
+
+  e.preventDefault();
+  document.querySelector("body").style.overflowY = "visible";
+  mostrar_esfera_caso(caso);
+})
 
 camara.position.z = 5;

@@ -12,7 +12,7 @@
         <div class="formulario">
             <h1>Simulador de ley gaussiana en esferas</h1>
             <h3><b>Por favor ingrese los siguientes datos</b></h3><br/><br/>
-            <form action="">
+            <form id="formulario">
                 <h3><b>Tipo de esfera:</b></h3>
                 <br>
                 <label for="aislante">Esfera aislante: </label>
@@ -30,12 +30,12 @@
 
                 <label for="radio-superficie">Seleccione el radio de la superficie gaussiana</label>
                 <input type="number" name="radio-superficie" id="radio-superficie">
+                <br/><br/><br/>
+                <input class="btn" type="submit" value="Calcular">
             </form>
         </div>
         <div class="simulacion">
-            <div class="esfera_contenedor" id="esfera_caso_1"></div>
-            <div class="esfera_contenedor" id="esfera_caso_2"></div>
-            <div class="esfera_contenedor" id="esfera_caso_3"></div>
+            <div id="esfera_contenedor"></div>
         </div>
     </div>
     
