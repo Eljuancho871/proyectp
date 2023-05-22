@@ -79,11 +79,11 @@ const mostrar_esfera_caso = (caso, radio_esfera, carga_esfera, radio_gaus) => {
   }
   else{
   
-    let esfera_padre_caso3 = new Esfera([radio_esfera / 2, 32, 32], 0xffff00);
+    let esfera_padre_caso3 = new Esfera([2, 32, 32], 0xffff00);
     esfera_padre_caso3.insertar_escena();
     esfera_padre_caso3.animar();
   
-    let esfera_hija_caso3 = new Esfera([(radio_esfera / 2) - 0.1, 32, 32], 0xffffff );
+    let esfera_hija_caso3 = new Esfera([2, 32, 32], 0xffffff );
     esfera_hija_caso3.agregar_esfera_hija(esfera_padre_caso3.esfera);
 
     let operacion = ((carga_esfera * Math.pow(10, -6)) * radio_esfera ) / (4 * Math.PI * EO * radio_gaus * radio_gaus * radio_gaus);
