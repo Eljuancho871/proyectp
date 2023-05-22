@@ -1,67 +1,122 @@
 import * as THREE from "three";
 
-// contenedores de cada caso
+const $esfera_contenedor = document.querySelector("#esfera_contenedor");
+let esferas_array = [];
 
-const $esfera_contenedor_caso_1 = document.querySelector("#esfera_caso_1");
-const $esfera_contenedor_caso_2 = document.querySelector("#esfera_caso_2");
-const $esfera_contenedor_caso_3 = document.querySelector("#esfera_caso_3");
-
-// configuracion perspectiva de la escena
-
-var escena = new THREE.Scene();
+let escena = new THREE.Scene();
 escena.background = new THREE.Color(0x333333);
-var camara = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+let camara = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
-// creando y cargando canvas al DOM y haciendolo responsive
-
-var renderer = new THREE.WebGLRenderer();
+let renderer = new THREE.WebGLRenderer({ antialias: true });
 const resize = () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
 };
-$esfera_contenedor_caso_1.appendChild(renderer.domElement);
 resize();
+$esfera_contenedor.appendChild(renderer.domElement);
+window.addEventListener("resize", resize);
 
-// creacion de la esfera grande
+class Esfera {
 
-var esfera_grande_geometrico = new THREE.SphereGeometry(2, 32, 32);
-var material_grande = new THREE.MeshBasicMaterial({
-  color: 0xffffff,
-  wireframe: true
-});
+  constructor(dimenciones, color) {
 
-var esfera_grande = new THREE.Mesh(esfera_grande_geometrico, material_grande);
-escena.add(esfera_grande);
+    this.geometria = new THREE.SphereGeometry(dimenciones[0], dimenciones[1], dimenciones[2]);
+    this.material = new THREE.MeshBasicMaterial({
+      color: color,
+      wireframe: true
+    });
+    this.esfera = new THREE.Mesh(this.geometria, this.material);
+    esferas_array.push(this.esfera);
+  }
 
-// creacion de la esfera grande
+  insertar_escena() {
+    escena.add(this.esfera);
+  }
 
-var esfera_pequena_geometrico = new THREE.SphereGeometry(1, 32, 32);
-var material_pequeno = new THREE.MeshBasicMaterial({
-  color: 0xffff00,
-  wireframe: true
-});
-var esfera_pequena = new THREE.Mesh(esfera_pequena_geometrico, material_pequeno);
+  agregar_esfera_hija(esfera_padre) {
+    esfera_padre.add(this.esfera);
+  }
 
-// esfera grande se le agrega adentro la esfera pequeña
+  animar() {
+    const animate = () => {
 
-esfera_grande.add(esfera_pequena);
-
-// distancia entre la camara y el eje z
-
-camara.position.z = 5;
-
-// animar las esfera
-
-function animate() {
-  requestAnimationFrame(animate);
-
-  esfera_grande.rotation.x += 0.005;
-  esfera_grande.rotation.y += 0.005;
-  esfera_pequena.rotation.x += 0.005;
-  esfera_pequena.rotation.y += 0.005;
-
-  renderer.render(escena, camara);
+      requestAnimationFrame(animate);
+      this.esfera.rotation.x += 0.005;
+      this.esfera.rotation.y += 0.005;
+      renderer.render(escena, camara);
+    };
+    animate();
+  }
 }
 
-animate();
+const mostrar_esfera_caso = (caso, radio_esfera, carga_esfera, radio_gaus) => {
 
-window.addEventListener("resize", resize);
+  const EO = 8.8541878176;
+  let $resultado = document.querySelector("#resultado");
+
+  if(caso == 1){
+    
+    let esfera_padre_caso1 = new Esfera([2, 32, 32], 0xffffff);
+    esfera_padre_caso1.insertar_escena();
+    esfera_padre_caso1.animar();
+    
+    let esfera_hija_caso1 = new Esfera([1, 32, 32], 0xffff00);
+    esfera_hija_caso1.agregar_esfera_hija(esfera_padre_caso1.esfera);
+
+    let operacion = (1) / (4 * Math.PI * EO) * (carga_esfera * Math.pow(10, -6)) / (radio_esfera * radio_esfera);
+    $resultado.innerHTML = operacion + "(N/C)*m²";
+  }
+  else if(caso == 2){
+  
+    let esfera_padre_caso2 = new Esfera([2, 32, 32], 0xffff00);
+    esfera_padre_caso2.insertar_escena();
+    esfera_padre_caso2.animar();
+  
+    let esfera_hija_caso2 = new Esfera([1, 32, 32], 0xffffff );
+    esfera_hija_caso2.agregar_esfera_hija(esfera_padre_caso2.esfera);
+
+    let operacion = ((carga_esfera * Math.pow(10, -6)) * radio_esfera ) / (4 * Math.PI * EO * radio_gaus * radio_gaus * radio_gaus );
+    $resultado.innerHTML = operacion + "(N/C)*m²";
+  }
+  else{
+  
+    let esfera_padre_caso3 = new Esfera([2, 32, 32], 0xffff00);
+    esfera_padre_caso3.insertar_escena();
+    esfera_padre_caso3.animar();
+  
+    let esfera_hija_caso3 = new Esfera([1.99, 32, 32], 0xffffff );
+    esfera_hija_caso3.agregar_esfera_hija(esfera_padre_caso3.esfera);
+
+    let operacion = ((carga_esfera * Math.pow(10, -6)) * radio_esfera ) / (4 * Math.PI * EO * radio_gaus * radio_gaus * radio_gaus);
+    $resultado.innerHTML = operacion + "(N/C)*m²";
+  }
+}
+
+document.querySelector("#formulario").addEventListener("submit", (e) => {
+
+  e.preventDefault();
+  document.querySelector("body").style.overflowY = "visible";
+
+  let carga_esfera = document.querySelector("#carga_esfera").value;
+  let radio_esfera = document.querySelector("#radio-esfera").value;
+  let radio_gaus = document.querySelector("#radio-superficie").value;
+  let caso;
+
+  if(radio_esfera > radio_gaus) caso = 1;
+  if(radio_esfera < radio_gaus) caso = 2;
+  if(radio_esfera == radio_gaus) caso = 3;
+
+  esferas_array.forEach(esfera => {
+
+  escena.remove(esfera);
+  esfera.geometry.dispose();
+  esfera.material.dispose();
+  })
+
+  esferas_array = [];
+  document.querySelector("#carga_esfera").value = "";
+  document.querySelector("#radio-esfera").value = "";
+  document.querySelector("#radio-superficie").value = "";
+  mostrar_esfera_caso(caso, radio_esfera, carga_esfera, radio_gaus);
+})
+
+camara.position.z = 5;
