@@ -20,5 +20,9 @@
   "dependencies": {
     "three": "^0.152.2",
     "vite": "^4.3.8"
+  },
+  "devDependencies": {
+    "webpack": "^5.83.1",
+    "webpack-cli": "^5.1.1"
   }
 }
