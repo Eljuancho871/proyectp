@@ -74,12 +74,12 @@ const mostrar_esfera_caso = (caso, radio_esfera, carga_esfera, radio_gaus) => {
     let esfera_hija_caso2 = new Esfera([1, 32, 32], 0xffffff );
     esfera_hija_caso2.agregar_esfera_hija(esfera_padre_caso2.esfera);
 
-    let operacion = ((carga_esfera * Math.pow(10, -6)) * radio_esfera ) / (4 * Math.PI * EO * radio_gaus * radio_gaus * radio_gaus );
+    let operacion = ((carga_esfera * Math.pow(10, -6)).toFixed(6) * radio_esfera ) / (4 * Math.PI * EO * radio_gaus * radio_gaus * radio_gaus );
     $resultado.innerHTML = operacion + "(N/C)*m²";
   }
   else{
   
-    let esfera_padre_caso3 = new Esfera([2, 32, 32], 0xffff00);
+    let esfera_padre_caso3 = new Esfera([2, 32, 32], 0xffff99);
     esfera_padre_caso3.insertar_escena();
     esfera_padre_caso3.animar();
   
@@ -96,10 +96,15 @@ document.querySelector("#formulario").addEventListener("submit", (e) => {
   e.preventDefault();
   document.querySelector("body").style.overflowY = "visible";
 
-  let carga_esfera = document.querySelector("#carga_esfera").value;
-  let radio_esfera = document.querySelector("#radio-esfera").value;
-  let radio_gaus = document.querySelector("#radio-superficie").value;
+  let carga_esfera = Number(document.querySelector("#carga_esfera").value);
+  let radio_esfera = Number(document.querySelector("#radio-esfera").value);
+  let radio_gaus = Number(document.querySelector("#radio-superficie").value);
+  document.querySelector("#superficieText").innerHTML = radio_gaus;
+  document.querySelector("#esferaText").innerHTML = radio_esfera;
+  document.querySelector("#cargaText").innerHTML = carga_esfera;
   let caso;
+
+  console.log(carga_esfera + 10, carga_esfera * 10, carga_esfera / 2)
 
   if(radio_esfera > radio_gaus) caso = 1;
   if(radio_esfera < radio_gaus) caso = 2;

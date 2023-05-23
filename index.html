@@ -10,22 +10,22 @@
 <body>
     <div class="container">
         <div class="formulario">
-            <h1>Simulador de ley gaussiana en esferas</h1>
+            <h1>Simulador de ley gaussiana en esferas Aislantes</h1>
             <h3><b>Por favor ingrese los siguientes datos 😁</b></h3><br/><br/>
             <form id="formulario">
                 <br>
                 <label for="carga_esfera">Carga de la esfera: </label>
-                <input type="number" id="carga_esfera">
+                <input type="number" id="carga_esfera"><span><b> µC</b></span>
                 <br>
                 <br/>
                 <h2><b>Radio:</b></h3><br/>
 
                 <label for="radio-esfera">Seleccione el radio de la esfera</label>
-                <input type="number" name="radio-esfera" id="radio-esfera">
+                <input type="number" name="radio-esfera" id="radio-esfera"><span><b> m</b></span>
                 <br><br>
 
                 <label for="radio-superficie">Seleccione el radio de la superficie gaussiana</label>
-                <input type="number" name="radio-superficie" id="radio-superficie">
+                <input type="number" name="radio-superficie" id="radio-superficie"><span><b> m</b></span>
                 <br/><br/><br/>
                 <input class="btn" type="submit" value="Calcular">
             </form>
@@ -39,8 +39,15 @@
 
     <div style="margin: 30px;" >
         <p style="color: white;margin-bottom: 10px;" >Colores:</p>
-        <h3 style="color: yellow; margin-left: 20px;" > superficie gaussiana</h3>
-        <h3 style="color: white;margin-left: 20px;" > Esfera</h3>
+        <h3 style="color: white ; margin-left: 20px;" > superficie gaussiana</h3>
+        <h3 style="color: yellow;margin-left: 20px;" > Esfera</h3>
+        
+        <br/><br/>
+
+        <p style="color: white;margin-bottom: 10px;" >Valores Ingresados: </p>
+        <h3 style="color: white ; margin-left: 20px;" > superficie gaussiana: <span id="superficieText"></span> </h3>
+        <h3 style="color: white ; margin-left: 20px;" > Esfera: <span id="esferaText"></span> </h3>
+        <h3 style="color: white;margin-left: 20px;" > Carga de la esfera: <span id="cargaText"></span></h3>
         
         <br/><br/>
         
