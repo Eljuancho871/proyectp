@@ -55,11 +55,11 @@ const mostrar_esfera_caso = (caso, radio_esfera, carga_esfera, radio_gaus) => {
 
   if(caso == 1){
     
-    let esfera_padre_caso1 = new Esfera([2, 32, 32], 0xffffff);
+    let esfera_padre_caso1 = new Esfera([2, 32, 32], 0xffff00);
     esfera_padre_caso1.insertar_escena();
     esfera_padre_caso1.animar();
     
-    let esfera_hija_caso1 = new Esfera([1, 32, 32], 0xffff00);
+    let esfera_hija_caso1 = new Esfera([1, 32, 32], 0xffffff);
     esfera_hija_caso1.agregar_esfera_hija(esfera_padre_caso1.esfera);
 
     let operacion = (1) / (4 * Math.PI * EO) * (carga_esfera * Math.pow(10, -6)) / (radio_esfera * radio_esfera);
@@ -67,11 +67,11 @@ const mostrar_esfera_caso = (caso, radio_esfera, carga_esfera, radio_gaus) => {
   }
   else if(caso == 2){
   
-    let esfera_padre_caso2 = new Esfera([2, 32, 32], 0xffff00);
+    let esfera_padre_caso2 = new Esfera([2, 32, 32], 0xffffff);
     esfera_padre_caso2.insertar_escena();
     esfera_padre_caso2.animar();
   
-    let esfera_hija_caso2 = new Esfera([1, 32, 32], 0xffffff );
+    let esfera_hija_caso2 = new Esfera([1, 32, 32],  0xffff00);
     esfera_hija_caso2.agregar_esfera_hija(esfera_padre_caso2.esfera);
 
     let operacion = ((carga_esfera * Math.pow(10, -6)).toFixed(6) * radio_esfera ) / (4 * Math.PI * EO * radio_gaus * radio_gaus * radio_gaus );
@@ -83,7 +83,7 @@ const mostrar_esfera_caso = (caso, radio_esfera, carga_esfera, radio_gaus) => {
     esfera_padre_caso3.insertar_escena();
     esfera_padre_caso3.animar();
   
-    let esfera_hija_caso3 = new Esfera([2, 32, 32], 0xffffff );
+    let esfera_hija_caso3 = new Esfera([1.99, 32, 32], 0xffffff );
     esfera_hija_caso3.agregar_esfera_hija(esfera_padre_caso3.esfera);
 
     let operacion = ((carga_esfera * Math.pow(10, -6)) * radio_esfera ) / (4 * Math.PI * EO * radio_gaus * radio_gaus * radio_gaus);
